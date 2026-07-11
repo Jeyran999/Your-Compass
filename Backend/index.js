@@ -3,28 +3,31 @@ dotenv.config();
 const mongoose = require("mongoose");
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
 const userRouter = require("./routes/users.router");
+const sanitizeMiddleware = require("./middlewares/sanitize.middleware")
 const app = express();
 
 
-// Middleware
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(sanitizeMiddleware) // Remove dangerous keys
+
 
 // Routes
-app.use("/api/users",userRouter)
+app.use("/users",userRouter)
 
 
-mongoose.connect(process.env.URL).then(() => {
-  console.log("DB connected");
+mongoose
+  .connect(process.env.URL)
+  .then(() => {
+    console.log("DB connected");
 
-  app.listen(process.env.PORT, () => {
-    console.log("API listened");
+    app.listen(process.env.PORT, () => {
+      console.log("API listened");
+    });
   })
   .catch((err) => {
-    console.log("DB connection failed: ", err)
-    process.exit(1)
-  })
-});
+    console.error("DB connection failed:", err);
+    process.exit(1);
+  });
 
 
