@@ -5,7 +5,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const userRouter = require("./routes/users.router");
 const tourRouter = require("./routes/tours.router")
-const sanitizeMiddleware = require("./middlewares/sanitize.middleware")
+const sanitizeMiddleware = require("./middlewares/sanitize.middleware");
+const wishlistRouter = require("./routes/wishlists.router");
 const app = express();
 
 
@@ -16,7 +17,7 @@ app.use(sanitizeMiddleware) // Remove dangerous keys
 // Routes
 app.use("/users", userRouter)
 app.use("/tours", tourRouter)
-
+app.use("/wishlist", wishlistRouter)
 
 mongoose
   .connect(process.env.URL)
