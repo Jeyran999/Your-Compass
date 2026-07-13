@@ -7,6 +7,7 @@ const userRouter = require("./routes/users.router");
 const tourRouter = require("./routes/tours.router")
 const sanitizeMiddleware = require("./middlewares/sanitize.middleware");
 const wishlistRouter = require("./routes/wishlists.router");
+const orderRouter = require("./routes/orders.router");
 const app = express();
 
 
@@ -18,6 +19,7 @@ app.use(sanitizeMiddleware) // Remove dangerous keys
 app.use("/users", userRouter)
 app.use("/tours", tourRouter)
 app.use("/wishlist", wishlistRouter)
+app.use("/orders", orderRouter)
 
 mongoose
   .connect(process.env.URL)
