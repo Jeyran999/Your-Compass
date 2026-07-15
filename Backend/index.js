@@ -8,6 +8,7 @@ const tourRouter = require("./routes/tours.router")
 const sanitizeMiddleware = require("./middlewares/sanitize.middleware");
 const wishlistRouter = require("./routes/wishlists.router");
 const orderRouter = require("./routes/orders.router");
+const quizRouter = require("./routes/quiz.router");
 const app = express();
 
 
@@ -20,6 +21,7 @@ app.use("/users", userRouter)
 app.use("/tours", tourRouter)
 app.use("/wishlist", wishlistRouter)
 app.use("/orders", orderRouter)
+app.use("/quiz", quizRouter)
 
 mongoose
   .connect(process.env.URL)
