@@ -10,9 +10,9 @@ const TourCard = ({ tour }) => {
         <p className={styles.subtitle}>{tour.packageTitle}</p>
         <div className={styles.priceRow}>
           <span className={styles.price}>${tour.price}</span>
-          <span className={styles.duration}>${tour.duration} days</span>
+          <span className={styles.duration}>{tour.duration} days</span>
         </div>
-        <Link to={"/tours/${tour._id}"} className={styles.button}>View Details</Link>
+        <Link to={`/tours/${tour._id}`} className={styles.button}>View Details</Link>
       </div>
     </div>
   );
