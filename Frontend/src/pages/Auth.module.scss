@@ -1,0 +1,72 @@
+@import "../styles/variables";
+
+.authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  background: white;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    margin-bottom: 8px;
+    color: $text-dark;
+  }
+
+  input {
+    padding: 10px 12px;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
+
+  button {
+    padding: 10px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  p {
+    text-align: center;
+    font-size: 14px;
+    color: $text-light;
+
+    a {
+      color: $primary-color;
+    }
+  }
+}
+
+.errors {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  list-style: none;
+}
