@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const userRouter = require("./routes/users.router");
 const tourRouter = require("./routes/tours.router")
@@ -11,7 +12,7 @@ const orderRouter = require("./routes/orders.router");
 const quizRouter = require("./routes/quiz.router");
 const app = express();
 
-
+app.use(cors())
 app.use(express.json())
 app.use(sanitizeMiddleware) // Remove dangerous keys
 
