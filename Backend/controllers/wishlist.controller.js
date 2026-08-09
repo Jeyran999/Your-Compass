@@ -5,19 +5,19 @@ const wishlistController = {
   // Add tour to wishlist
   add: async (req, res) => {
     try {
-      const { tourID } = req.body;
+      const { tourId } = req.body;
 
       // Checking tour exists or not
-      const tour = await Tour.findById(tourID);
+      const tour = await Tour.findById(tourId);
       if (!tour) return res.status(404).json({ message: "Tour not found" });
 
       const user = await User.findById(req.user.id);
 
       // Checking tour exists in wishlist or not
-      if (user.wishlist.includes(tourID))
+      if (user.wishlist.includes(tourId))
         return res.status(409).json({ message: "Tour already exists" });
 
-      user.wishlist.push(tourID);
+      user.wishlist.push(tourId);
       await user.save();
 
       res
@@ -32,16 +32,16 @@ const wishlistController = {
   // Remove tour from wishlist
   remove: async (req, res) => {
     try {
-      const { tourID } = req.params;
+      const { tourId } = req.params;
       const user = await User.findById(req.user.id);
-      user.wishlist = user.wishlist.filter((id) => id.toString() !== tourID);
+      user.wishlist = user.wishlist.filter((id) => id.toString() !== tourId);
+
+      await user.save();
 
       res.status(200).json({
         message: "Removed from wishlist",
         wishlist: user.wishlist,
       });
-
-      await user.save();
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });

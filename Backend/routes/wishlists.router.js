@@ -6,7 +6,7 @@ const wishlistRouter = express.Router()
 
 wishlistRouter.get("/", authMiddleware, wishlistController.getMyWishlist)
 wishlistRouter.post("/", authMiddleware, wishlistController.add)
-wishlistRouter.delete("/:tourID", authMiddleware, wishlistController.remove)
+wishlistRouter.delete("/:tourId", authMiddleware, wishlistController.remove)
 
 // Export
 module.exports = wishlistRouter
