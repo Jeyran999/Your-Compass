@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useWishlist } from "../context/WishlistContext";
 import api from "../services/api";
 import styles from "./TourDetail.module.scss";
 
@@ -8,6 +10,8 @@ const TourDetail = () => {
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -53,7 +57,22 @@ const TourDetail = () => {
 
       <div className={styles.actions}>
         <button className={styles.bookButton}>Book Now</button>
-        <button className={styles.wishlistButton}>Add to Wishlist</button>
+        {user &&
+          (isInWishlist(tour._id) ? (
+            <button
+              className={styles.wishlistButton}
+              onClick={() => removeFromWishlist(tour._id)}
+            >
+              Remove from Wishlist
+            </button>
+          ) : (
+            <button
+              className={styles.wishlistButton}
+              onClick={() => addToWishlist(tour._id)}
+            >
+              Add to Wishlist
+            </button>
+          ))}
       </div>
     </div>
   );
