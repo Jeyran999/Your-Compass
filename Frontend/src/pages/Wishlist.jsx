@@ -1,5 +1,5 @@
 import { useWishlist } from "../context/WishlistContext";
-import TourCard from "../components/cards/Tour";
+import WishlistCard from "../components/cards/WishlistCard"; // dəyişdi
 import styles from "./Wishlist.module.scss";
 
 const Wishlist = () => {
@@ -19,7 +19,7 @@ const Wishlist = () => {
       <h2 className={styles.title}>My Wishlist</h2>
       <div className={styles.grid}>
         {wishlist.map((tour) => (
-          <TourCard key={tour._id} tour={tour} />
+          <WishlistCard key={tour._id} tour={tour} />
         ))}
       </div>
     </div>

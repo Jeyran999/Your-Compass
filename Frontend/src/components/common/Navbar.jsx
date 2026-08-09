@@ -30,6 +30,9 @@ const Navbar = () => {
 
         {user ? (
           <>
+            <Link to="/my-orders" className={styles.link}>
+              My Orders
+            </Link>
             <span className={styles.link}>Hi, {user.username}</span>
             <button onClick={handleLogout} className={styles.link}>
               Logout

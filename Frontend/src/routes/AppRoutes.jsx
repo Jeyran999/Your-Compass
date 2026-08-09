@@ -5,6 +5,8 @@ import Register from "../pages/Register";
 import TourDetail from "../pages/TourDetail";
 import Wishlist from "../pages/Wishlist";
 import ProtectedRoute from "./ProtectedRoute";
+import MyOrders from "../pages/MyOrders";
+import Checkout from "../pages/Checkout";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +20,22 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Wishlist />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-orders"
+        element={
+          <ProtectedRoute>
+            <MyOrders />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/checkout/:id"
+        element={
+          <ProtectedRoute>
+            <Checkout />
           </ProtectedRoute>
         }
       />

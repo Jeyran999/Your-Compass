@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useWishlist } from "../context/WishlistContext";
 import api from "../services/api";
@@ -12,6 +13,8 @@ const TourDetail = () => {
   const [error, setError] = useState(null);
   const { user } = useAuth();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -56,7 +59,13 @@ const TourDetail = () => {
       <p className={styles.description}>{tour.description}</p>
 
       <div className={styles.actions}>
-        <button className={styles.bookButton}>Book Now</button>
+        <button
+          className={styles.bookButton}
+          onClick={() => navigate(`/checkout/${tour._id}`)}
+        >
+          Book Now
+        </button>
+        
         {user &&
           (isInWishlist(tour._id) ? (
             <button
