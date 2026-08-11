@@ -33,8 +33,8 @@ const Navbar = () => {
             <Link to="/my-orders" className={styles.link}>
               My Orders
             </Link>
-            <span className={styles.link}>Hi, {user.username}</span>
-            <button onClick={handleLogout} className={styles.link}>
+            <span className={styles.username}>Hi, {user.username}</span>
+            <button onClick={handleLogout} className={styles.logoutButton}>
               Logout
             </button>
           </>

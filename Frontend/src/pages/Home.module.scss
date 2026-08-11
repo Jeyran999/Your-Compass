@@ -1,0 +1,100 @@
+@import "../styles/variables";
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+
+  button {
+    padding: 8px 14px;
+    border: 1px solid $border-color;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 36px;
+
+    &:hover:not(:disabled) {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.activePage {
+  background-color: $primary-color !important;
+  color: white !important;
+  border-color: $primary-color !important;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.sortSelect {
+  padding: 10px 16px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-dark;
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  min-width: 210px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+  }
+
+  &:hover {
+    border-color: $primary-color;
+  }
+
+  option {
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: $text-dark;
+    background-color: white;
+
+    &:checked {
+      background-color: $primary-color;
+      color: white;
+    }
+
+    &:hover {
+      background-color: $bg-light;
+    }
+  }
+}

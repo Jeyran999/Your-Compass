@@ -63,4 +63,8 @@
   background-color: $primary-color;
   color: white;
   border-radius: 6px;
+  transition: .2s;
+  &:hover{
+    background-color: #093ba8;
+  }
 }
