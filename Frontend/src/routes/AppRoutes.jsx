@@ -7,6 +7,7 @@ import Wishlist from "../pages/Wishlist";
 import ProtectedRoute from "./ProtectedRoute";
 import MyOrders from "../pages/MyOrders";
 import Checkout from "../pages/Checkout";
+import Quiz from "../pages/Quiz";
 
 const AppRoutes = () => {
   return (
@@ -39,6 +40,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/quiz" element={<Quiz />} />
     </Routes>
   );
 };
