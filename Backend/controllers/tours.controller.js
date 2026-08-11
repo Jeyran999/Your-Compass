@@ -19,16 +19,21 @@ const tourController = {
       const limit = parseInt(req.query.limit) || 12;
       const skip = (page - 1) * limit;
 
-      // Sorting
       const sortBy = req.query.sortBy || "price";
       const order = req.query.order === "desc" ? -1 : 1;
 
-      const tours = await Tour.find()
+      // Searching filter
+      const search = req.query.search || "";
+      const filter = search
+        ? { cityName: { $regex: search, $options: "i" } }
+        : {};
+
+      const tours = await Tour.find(filter)
         .sort({ [sortBy]: order })
         .skip(skip)
         .limit(limit);
 
-      const total = await Tour.countDocuments();
+      const total = await Tour.countDocuments(filter);
 
       res.status(200).json({
         tours,
