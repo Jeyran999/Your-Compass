@@ -11,14 +11,23 @@ const tourController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+
   // getAll function with pagination
   getAll: async (req, res) => {
     try {
-      const page = parseInt(req.query.page) || 1; // show page 1 as default
-      const limit = parseInt(req.query.limit) || 12; // show 12 tours as default in 1 page
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 12;
       const skip = (page - 1) * limit;
 
-      const tours = await Tour.find().skip(skip).limit(limit);
+      // Sorting
+      const sortBy = req.query.sortBy || "price";
+      const order = req.query.order === "desc" ? -1 : 1;
+
+      const tours = await Tour.find()
+        .sort({ [sortBy]: order })
+        .skip(skip)
+        .limit(limit);
+
       const total = await Tour.countDocuments();
 
       res.status(200).json({
@@ -32,6 +41,7 @@ const tourController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+
   getOne: async (req, res) => {
     try {
       const tour = await Tour.findById(req.params.id);
@@ -43,6 +53,7 @@ const tourController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+
   update: async (req, res) => {
     try {
       const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
@@ -56,6 +67,7 @@ const tourController = {
       res.status(500).json({ message: "Internal server error" });
     }
   },
+
   delete: async (req, res) => {
     try {
       const tour = await Tour.findByIdAndDelete(req.params.id);
@@ -65,8 +77,8 @@ const tourController = {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 };
 
 // Export
-module.exports = tourController
+module.exports = tourController;
