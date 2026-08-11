@@ -1,12 +1,18 @@
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useWishlist } from "../../context/WishlistContext";
+import { useOrders } from "../../context/OrderContext";
 import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { wishlist } = useWishlist();
+  const { orders } = useOrders();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+
+  const activeOrders = orders.filter((order) => order.status === "confirmed");
 
   const handleLogout = () => {
     logout();
@@ -49,13 +55,19 @@ const Navbar = () => {
           Quiz
         </Link>
         <Link to="/wishlist" className={styles.link}>
-          Wishlist
+          Wishlist{" "}
+          {wishlist.length > 0 && (
+            <span className={styles.badge}>{wishlist.length}</span>
+          )}
         </Link>
 
         {user ? (
           <>
             <Link to="/my-orders" className={styles.link}>
-              My Orders
+              My Orders{" "}
+              {activeOrders.length > 0 && (
+                <span className={styles.badge}>{activeOrders.length}</span>
+              )}
             </Link>
             <span className={styles.username}>Hi, {user.username}</span>
             <button onClick={handleLogout} className={styles.logoutButton}>

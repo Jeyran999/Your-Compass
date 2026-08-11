@@ -1,29 +1,8 @@
-import { useState, useEffect } from "react";
-import api from "../services/api";
+import { useOrders } from "../context/OrderContext";
 import styles from "./MyOrders.module.scss";
 
 const MyOrders = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await api.get("/orders/my-orders", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-        setOrders(response.data.orders);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
+  const { orders, cancelOrder } = useOrders();
 
   if (orders.length === 0) {
     return (
@@ -54,6 +33,14 @@ const MyOrders = () => {
             <span className={`${styles.status} ${styles[order.status]}`}>
               {order.status}
             </span>
+            {order.status === "confirmed" && (
+              <button
+                className={styles.cancelButton}
+                onClick={() => cancelOrder(order._id)}
+              >
+                Cancel Order
+              </button>
+            )}
           </div>
         </div>
       ))}
