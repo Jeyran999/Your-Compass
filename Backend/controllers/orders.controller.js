@@ -5,7 +5,8 @@ const orderController = {
   // Create new order
   create: async (req, res) => {
     try {
-      const { tourId, travelers, cardExpires, travelDate, cardNumber } = req.body;
+      const { tourId, travelers, cardExpires, travelDate, cardNumber } =
+        req.body;
 
       const tour = await Tour.findById(tourId);
       if (!tour) return res.status(404).json({ message: "Tour not found" });
@@ -19,7 +20,7 @@ const orderController = {
         totalPrice,
         travelDate,
         cardLast4,
-        cardExpires
+        cardExpires,
       });
       await order.save();
       res.status(201).json({ message: "Order placed successfully", order });
@@ -81,6 +82,30 @@ const orderController = {
 
       if (!order) return res.status(404).json({ message: "Order not found" });
       res.status(200).json({ message: "Order status updated", order });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+  // Cancel order
+  cancelOrder: async (req, res) => {
+    try {
+      const order = await Order.findById(req.params.id);
+
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      // Can only cancel their own order
+      if (order.userId.toString() !== req.user.id) {
+        return res.status(403).json({ message: "Access denied" });
+      }
+
+      order.status = "cancelled";
+      await order.save();
+
+      res.status(200).json({ message: "Order cancelled", order });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Internal server error" });

@@ -10,6 +10,7 @@ const orderRouter = express.Router()
 // Users' routes (login is required)
 orderRouter.post("/", authMiddleware, validate(createOrderSchema), orderController.create) // Creating order
 orderRouter.get("/my-orders", authMiddleware, orderController.getMyOrders) // showing user's orders
+orderRouter.put("/:id/cancel", authMiddleware, orderController.cancelOrder) // cancel order
 
 // Admin's routes
 orderRouter.get("/", authMiddleware, adminMiddleware, orderController.getAll) // showing all orders 
