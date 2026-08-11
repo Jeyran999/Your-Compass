@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./Navbar.module.scss";
@@ -5,10 +6,20 @@ import styles from "./Navbar.module.scss";
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/?search=${searchTerm.trim()}`);
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -16,6 +27,19 @@ const Navbar = () => {
       <Link to="/" className={styles.logo}>
         Your Compass
       </Link>
+
+      <form className={styles.searchForm} onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search a city..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+        <button type="submit" className={styles.searchButton}>
+          Search
+        </button>
+      </form>
 
       <div className={styles.links}>
         <Link to="/" className={styles.link}>

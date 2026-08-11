@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../services/api";
 import TourCard from "../components/cards/Tour";
 import styles from "./Home.module.scss";
 
 const Home = () => {
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search") || "";
+
   const [tours, setTours] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [order, setOrder] = useState("asc");
   const [sortBy, setSortBy] = useState("price");
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [order, setOrder] = useState("asc");
 
   useEffect(() => {
     const fetchTours = async () => {
       try {
         const response = await api.get(
-          `/tours?page=${page}&limit=12&sortBy=${sortBy}&order=${order}`,
+          `/tours?page=${page}&limit=12&sortBy=${sortBy}&order=${order}&search=${search}`,
         );
         setTours(response.data.tours);
         setTotalPages(response.data.totalPages);
@@ -30,13 +33,13 @@ const Home = () => {
     };
 
     fetchTours();
-  }, [page, sortBy, order]);
+  }, [page, sortBy, order, search]);
 
   const handleSortChange = (e) => {
     const [newSortBy, newOrder] = e.target.value.split("-");
     setSortBy(newSortBy);
     setOrder(newOrder);
-    setPage(1); // sıralama dəyişəndə 1-ci səhifəyə qayıt
+    setPage(1);
   };
 
   if (initialLoad) return <p>Loading tours...</p>;
@@ -44,6 +47,12 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+      {search && (
+        <p className={styles.searchInfo}>
+          Showing results for: <strong>{search}</strong>
+        </p>
+      )}
+
       <div className={styles.toolbar}>
         <select
           value={`${sortBy}-${order}`}
@@ -57,34 +66,42 @@ const Home = () => {
         </select>
       </div>
 
-      <div className={styles.grid}>
-        {tours.map((tour) => (
-          <TourCard key={tour._id} tour={tour} />
-        ))}
-      </div>
+      {tours.length === 0 ? (
+        <p className={styles.empty}>No tours found.</p>
+      ) : (
+        <>
+          <div className={styles.grid}>
+            {tours.map((tour) => (
+              <TourCard key={tour._id} tour={tour} />
+            ))}
+          </div>
 
-      <div className={styles.pagination}>
-        <button onClick={() => setPage((p) => p - 1)} disabled={page === 1}>
-          Previous
-        </button>
+          <div className={styles.pagination}>
+            <button onClick={() => setPage((p) => p - 1)} disabled={page === 1}>
+              Previous
+            </button>
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-          <button
-            key={num}
-            onClick={() => setPage(num)}
-            className={num === page ? styles.activePage : ""}
-          >
-            {num}
-          </button>
-        ))}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                onClick={() => setPage(num)}
+                className={num === page ? styles.activePage : ""}
+              >
+                {num}
+              </button>
+            ))}
 
-        <button
-          onClick={() => setPage((p) => p + 1)}
-          disabled={page === totalPages}
-        >
-          Next
-        </button>
-      </div>
+            <button
+              onClick={() => setPage((p) => p + 1)}
+              disabled={page === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
+
+      
     </div>
   );
 };
