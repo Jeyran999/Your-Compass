@@ -17,7 +17,9 @@ const quizController = {
         return { tour, score };
       });
       const maxScore = Math.max(...scoredTours.map((item) => item.score));
-      let topMatches = scoredTours.filter((item) => item.score === maxScore);
+      let topMatches = scoredTours
+        .filter((item) => item.score === maxScore)
+        .slice(0, 4); // show max 4 tours 
 
       if (maxScore === 0) {
         return res.status(200).json({
