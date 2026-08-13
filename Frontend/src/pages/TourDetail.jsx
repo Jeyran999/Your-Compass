@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import CityMap from "../components/common/CityMap";
+import ImageSlider from "../components/common/ImageSlider";
 import { useAuth } from "../context/AuthContext";
 import { useWishlist } from "../context/WishlistContext";
 import api from "../services/api";
@@ -38,7 +40,8 @@ const TourDetail = () => {
 
   return (
     <div className={styles.container}>
-      <img src={tour.images[0]} alt={tour.cityName} className={styles.image} />
+      <ImageSlider images={tour.images} alt={tour.cityName} />
+      <CityMap cityName={tour.cityName} />
 
       <div className={styles.header}>
         <div>
@@ -65,23 +68,25 @@ const TourDetail = () => {
         >
           Book Now
         </button>
-        
-        {user &&
-          (isInWishlist(tour._id) ? (
-            <button
-              className={styles.wishlistButton}
-              onClick={() => removeFromWishlist(tour._id)}
-            >
-              Remove from Wishlist
-            </button>
-          ) : (
-            <button
-              className={styles.wishlistButton}
-              onClick={() => addToWishlist(tour._id)}
-            >
-              Add to Wishlist
-            </button>
-          ))}
+
+        {user
+          && (isInWishlist(tour._id)
+            ? (
+              <button
+                className={styles.wishlistButton}
+                onClick={() => removeFromWishlist(tour._id)}
+              >
+                Remove from Wishlist
+              </button>
+            )
+            : (
+              <button
+                className={styles.wishlistButton}
+                onClick={() => addToWishlist(tour._id)}
+              >
+                Add to Wishlist
+              </button>
+            ))}
       </div>
     </div>
   );

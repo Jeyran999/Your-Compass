@@ -1,12 +1,17 @@
+import Footer from "./components/common/Footer";
 import Navbar from "./components/common/Navbar";
 import AppRoutes from "./routes/AppRoutes";
+import styles from "../src/App.module.scss"
 
 function App() {
   return (
-    <>
+    <div className={styles.appWrapper}>
       <Navbar />
-      <AppRoutes />
-    </>
+      <main className={styles.mainContent}>
+        <AppRoutes />
+      </main>
+      <Footer />
+    </div>
   );
 }
 

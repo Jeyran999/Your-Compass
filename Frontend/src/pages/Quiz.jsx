@@ -1,6 +1,6 @@
 import { useState } from "react";
-import api from "../services/api";
 import TourCard from "../components/cards/Tour";
+import api from "../services/api";
 import styles from "./Quiz.module.scss";
 
 const questions = [
@@ -18,10 +18,8 @@ const questions = [
     label: "What kind of food do you enjoy?",
     options: [
       { value: "spicy", label: "Spicy" },
-      { value: "mild", label: "Mild" },
       { value: "seafood", label: "Seafood" },
       { value: "vegetarian-friendly", label: "Vegetarian" },
-      { value: "diverse", label: "Diverse" },
     ],
   },
   {
@@ -31,8 +29,6 @@ const questions = [
       { value: "beach", label: "Beach" },
       { value: "adventure", label: "Adventure" },
       { value: "cultural", label: "Cultural" },
-      { value: "relaxation", label: "Relaxation" },
-      { value: "nature", label: "Nature" },
     ],
   },
   {
@@ -41,6 +37,7 @@ const questions = [
     options: [
       { value: "historic", label: "Historic" },
       { value: "modern", label: "Modern" },
+      { value: "any", label: "No preference" },
     ],
   },
   {
@@ -111,9 +108,7 @@ const Quiz = () => {
         <p className={styles.matchInfo}>{results.message}</p>
 
         <div className={styles.resultsGrid}>
-          {results.recommendations.map((item) => (
-            <TourCard key={item.tour._id} tour={item.tour} />
-          ))}
+          {results.recommendations.map((item) => <TourCard key={item.tour._id} tour={item.tour} />)}
         </div>
 
         <button className={styles.retakeButton} onClick={handleRetake}>
