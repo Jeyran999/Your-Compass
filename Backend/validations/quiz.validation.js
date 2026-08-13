@@ -8,7 +8,7 @@ const quizSchema = Joi.object({
   activityType: Joi.string()
     .valid("beach", "adventure", "cultural", "relaxation", "nature")
     .required(),
-  cityVibe: Joi.string().valid("modern", "historical").required(),
+  cityVibe: Joi.string().valid("historic", "modern", "any").required(),
   budget: Joi.string().valid("cheap", "moderate", "expensive").required(),
 });
 
