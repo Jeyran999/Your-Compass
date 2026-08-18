@@ -1,9 +1,10 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/api";
 import { useAuth } from "./AuthContext";
 
 const OrderContext = createContext();
 
+// Keeps the user's orders in sync across Navbar (badge count) and My Orders page, so cancelling an order updates both instantly
 export const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
   const { user } = useAuth();
@@ -18,7 +19,7 @@ export const OrderProvider = ({ children }) => {
       console.log(err);
     }
   };
-
+  // Refetch on login, clear on logout
   useEffect(() => {
     if (user) {
       fetchOrders();

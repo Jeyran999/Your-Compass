@@ -21,7 +21,7 @@ const Login = () => {
 
     try {
       const response = await api.post("/users/login", formData);
-      login(response.data.token);
+      login(response.data.token); // saves token + updates AuthContext
       navigate("/");
     } catch (err) {
       if (err.response?.data?.errors) {

@@ -22,6 +22,7 @@ const ManageOrders = () => {
     fetchOrders();
   }, []);
 
+  // Status is changed inline via the dropdown, updates immediately
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       await adminApi.updateOrderStatus(orderId, newStatus);
@@ -56,6 +57,7 @@ const ManageOrders = () => {
         <tbody>
           {orders.map((order) => (
             <tr key={order._id}>
+              {/* Fallback text in case a user/tour was deleted */}
               <td>{order.userId?.username || "Unknown"}</td>
               <td>{order.tourId?.cityName || "Deleted tour"}</td>
               <td>{order.travelers}</td>

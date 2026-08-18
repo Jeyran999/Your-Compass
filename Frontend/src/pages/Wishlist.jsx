@@ -1,8 +1,9 @@
-import { useWishlist } from "../context/WishlistContext";
 import WishlistCard from "../components/cards/WishlistCard"; // dəyişdi
+import { useWishlist } from "../context/WishlistContext";
 import styles from "./Wishlist.module.scss";
 
 const Wishlist = () => {
+  // Data already lives in context - no fetch needed here
   const { wishlist } = useWishlist();
 
   if (wishlist.length === 0) {
@@ -18,9 +19,7 @@ const Wishlist = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>My Wishlist</h2>
       <div className={styles.grid}>
-        {wishlist.map((tour) => (
-          <WishlistCard key={tour._id} tour={tour} />
-        ))}
+        {wishlist.map((tour) => <WishlistCard key={tour._id} tour={tour} />)}
       </div>
     </div>
   );

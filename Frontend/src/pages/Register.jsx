@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       await api.post("/users/register", formData);
-      navigate("/login");
+      navigate("/login"); // redirect to login after successful signup
     } catch (err) {
       if (err.response?.data?.errors) {
         setErrors(err.response.data.errors);

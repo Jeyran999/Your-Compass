@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import styles from "./Checkout.module.scss";
 
 const Checkout = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // tour being booked
   const navigate = useNavigate();
 
   const [tour, setTour] = useState(null);
@@ -38,6 +38,7 @@ const Checkout = () => {
     setLoading(true);
 
     try {
+      // Card details are sent for validation only -- the backend only stores the last 4 digits
       await api.post(
         "/orders",
         { ...formData, tourId: id },
@@ -83,9 +84,7 @@ const Checkout = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         {errors.length > 0 && (
           <ul className={styles.errors}>
-            {errors.map((err, i) => (
-              <li key={i}>{err}</li>
-            ))}
+            {errors.map((err, i) => <li key={i}>{err}</li>)}
           </ul>
         )}
 
@@ -145,6 +144,7 @@ const Checkout = () => {
           </div>
         </div>
 
+        {/* Total updates live as the traveler count changes */}
         <button type="submit" disabled={loading}>
           {loading
             ? "Processing..."

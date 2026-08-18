@@ -23,8 +23,7 @@ const MyOrders = () => {
               {order.tourId?.cityName} — {order.tourId?.packageTitle}
             </h3>
             <p>
-              {order.travelers} traveler(s) ·{" "}
-              {new Date(order.travelDate).toLocaleDateString()}
+              {order.travelers} traveler(s) · {new Date(order.travelDate).toLocaleDateString()}
             </p>
             <p>Card ending in {order.cardLast4}</p>
           </div>
@@ -33,6 +32,7 @@ const MyOrders = () => {
             <span className={`${styles.status} ${styles[order.status]}`}>
               {order.status}
             </span>
+            {/* Only cancellable if not already cancelled */}
             {order.status === "confirmed" && (
               <button
                 className={styles.cancelButton}

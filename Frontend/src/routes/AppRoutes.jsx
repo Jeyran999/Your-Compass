@@ -13,6 +13,7 @@ import Wishlist from "../pages/Wishlist";
 import AdminRoute from "./AdminRoute";
 import ProtectedRoute from "./ProtectedRoute";
 
+// All app routes in one place. Public routes need no wrapper, user-only routes use ProtectedRoute; admin-only routes use AdminRoute
 const AppRoutes = () => {
   return (
     <Routes>

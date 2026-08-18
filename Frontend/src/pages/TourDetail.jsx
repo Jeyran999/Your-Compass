@@ -9,7 +9,7 @@ import api from "../services/api";
 import styles from "./TourDetail.module.scss";
 
 const TourDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // tour ID from the URL
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,6 +18,7 @@ const TourDetail = () => {
 
   const navigate = useNavigate();
 
+  // Refetch if the ID in the URL changes (e.g. navigating between tours)
   useEffect(() => {
     const fetchTour = async () => {
       try {
@@ -69,6 +70,7 @@ const TourDetail = () => {
           Book Now
         </button>
 
+        {/* Wishlist button only shown to logged-in users */}
         {user
           && (isInWishlist(tour._id)
             ? (

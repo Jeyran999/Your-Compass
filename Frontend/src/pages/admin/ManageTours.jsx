@@ -8,7 +8,7 @@ const ManageTours = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingTour, setEditingTour] = useState(null);
+  const [editingTour, setEditingTour] = useState(null); // null = creating new tour
 
   const fetchTours = async () => {
     try {
@@ -38,12 +38,12 @@ const ManageTours = () => {
   };
 
   const openAddModal = () => {
-    setEditingTour(null);
+    setEditingTour(null); // empty form
     setIsModalOpen(true);
   };
 
   const openEditModal = (tour) => {
-    setEditingTour(tour);
+    setEditingTour(tour); // pre-fills the form
     setIsModalOpen(true);
   };
 
@@ -99,6 +99,7 @@ const ManageTours = () => {
         </tbody>
       </table>
 
+      {/* Same modal handles both "Add" and "Edit" — behavior depends on editingTour */}
       {isModalOpen && (
         <TourFormModal
           tour={editingTour}

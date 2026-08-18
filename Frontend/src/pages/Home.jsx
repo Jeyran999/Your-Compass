@@ -1,21 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import api from "../services/api";
 import TourCard from "../components/cards/Tour";
+import api from "../services/api";
 import styles from "./Home.module.scss";
 
 const Home = () => {
+  // Reads ?search=... from the URL (set by Navbar's search bar)
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
 
   const [tours, setTours] = useState([]);
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true); // only true on first load, not on sort/page changes
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [sortBy, setSortBy] = useState("price");
   const [order, setOrder] = useState("asc");
 
+  // Refetch whenever page, sort, or search changes
   useEffect(() => {
     const fetchTours = async () => {
       try {
@@ -35,11 +37,12 @@ const Home = () => {
     fetchTours();
   }, [page, sortBy, order, search]);
 
+  // Sort dropdown value looks like "price-asc" -- split it into two states
   const handleSortChange = (e) => {
     const [newSortBy, newOrder] = e.target.value.split("-");
     setSortBy(newSortBy);
     setOrder(newOrder);
-    setPage(1);
+    setPage(1); // reset to page 1 when sorting changes
   };
 
   if (initialLoad) return <p>Loading tours...</p>;
@@ -66,14 +69,10 @@ const Home = () => {
         </select>
       </div>
 
-      {tours.length === 0 ? (
-        <p className={styles.empty}>No tours found.</p>
-      ) : (
+      {tours.length === 0 ? <p className={styles.empty}>No tours found.</p> : (
         <>
           <div className={styles.grid}>
-            {tours.map((tour) => (
-              <TourCard key={tour._id} tour={tour} />
-            ))}
+            {tours.map((tour) => <TourCard key={tour._id} tour={tour} />)}
           </div>
 
           <div className={styles.pagination}>
@@ -100,8 +99,6 @@ const Home = () => {
           </div>
         </>
       )}
-
-      
     </div>
   );
 };

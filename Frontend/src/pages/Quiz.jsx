@@ -52,7 +52,7 @@ const questions = [
 ];
 
 const Quiz = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(0); // index of the current question
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ const Quiz = () => {
     setAnswers(updatedAnswers);
 
     if (isLastStep) {
-      submitQuiz(updatedAnswers);
+      submitQuiz(updatedAnswers); // pass directly -- state update isn't synchronous yet
     } else {
       setStep((s) => s + 1);
     }

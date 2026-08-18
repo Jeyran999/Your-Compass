@@ -12,7 +12,7 @@ const Navbar = () => {
   const activeOrders = orders.filter((order) => order.status === "confirmed");
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile hamburger menu
 
   const handleLogout = () => {
     logout();
@@ -44,7 +44,8 @@ const Navbar = () => {
           {isMenuOpen ? "✕" : "☰"}
         </button>
       </div>
-
+      
+      {/* Hidden on mobile unless isMenuOpen is true */}
       <div className={`${styles.collapsible} ${isMenuOpen ? styles.open : ""}`}>
         <form className={styles.searchForm} onSubmit={handleSearch}>
           <input

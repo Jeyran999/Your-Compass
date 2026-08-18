@@ -16,6 +16,7 @@ const emptyForm = {
   budget: "cheap",
 };
 
+// If `tour` prop is passed, it pre-fills and switches to "edit" mode.
 const TourFormModal = ({ tour, onClose, onSuccess }) => {
   const [formData, setFormData] = useState(emptyForm);
   const [errors, setErrors] = useState([]);
@@ -23,6 +24,7 @@ const TourFormModal = ({ tour, onClose, onSuccess }) => {
 
   const isEditing = Boolean(tour);
 
+  // Pre-fill form when editing an existing tour.
   useEffect(() => {
     if (tour) {
       setFormData({
@@ -41,6 +43,7 @@ const TourFormModal = ({ tour, onClose, onSuccess }) => {
     setErrors([]);
     setLoading(true);
 
+    // Convert form strings back into the types the backend expects
     const payload = {
       ...formData,
       price: Number(formData.price),
@@ -68,6 +71,7 @@ const TourFormModal = ({ tour, onClose, onSuccess }) => {
   };
 
   return (
+    // Clicking the dark overlay closes the modal -> stopPropagation
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <h2>{isEditing ? "Edit Tour" : "Add New Tour"}</h2>
