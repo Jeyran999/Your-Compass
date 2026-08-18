@@ -38,22 +38,21 @@ A full-stack travel booking platform where users can browse curated tour package
 ## Project Structure
 Your Compass/
 ├── Backend/
-│ ├── controllers/ # Business logic for each resource
-│ ├── models/ # Mongoose schemas
-│ ├── routes/ # Express route definitions
-│ ├── middlewares/ # Auth, validation, error handling
-│ ├── validations/ # Joi schemas
-│ └── index.js # App entry point
+│   ├── controllers/       # Business logic for each resource
+│   ├── models/            # Mongoose schemas
+│   ├── routes/            # Express route definitions
+│   ├── middlewares/       # Authentication, validation, error handling
+│   ├── validations/       # Joi validation schemas
+│   └── index.js           # Backend entry point
 │
 └── Frontend/
-└── src/
-├── components/ # Reusable UI pieces (cards, admin widgets, common elements)
-├── pages/ # Full page components tied to routes
-├── context/ # Global state (Auth, Wishlist, Orders)
-├── routes/ # Route definitions and route guards
-├── services/ # API call wrappers
-└── styles/ # Global Sass variables and mixins
-
+    └── src/
+        ├── components/    # Reusable UI components
+        ├── pages/         # Page components
+        ├── context/       # Global state management
+        ├── routes/        # Route definitions and route guards
+        ├── services/      # API call wrappers
+        └── styles/        # Global Sass variables and mixins
 
 ## Getting Started
 
