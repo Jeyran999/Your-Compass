@@ -1,9 +1,14 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
 
 .footer {
   background-color: $text-dark;
   color: white;
   padding: 24px 40px;
+
+  @include respond(mobile) {
+    padding: 24px 20px;
+  }
 }
 
 .content {
@@ -15,11 +20,24 @@
   flex-wrap: wrap;
   gap: 12px;
   font-size: 14px;
+
+  @include respond(mobile) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
 }
 
 .links {
   display: flex;
   gap: 20px;
+
+  @include respond(mobile) {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
   a {
     color: #d1d5db;

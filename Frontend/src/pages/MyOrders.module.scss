@@ -1,7 +1,8 @@
 @import "../styles/variables";
+@import "../styles/mixins";
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
 }
@@ -27,9 +28,19 @@
   border-radius: 10px;
   padding: 16px 20px;
   margin-bottom: 12px;
+  gap: 24px;
+
+  @include respond(mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }
 
 .info {
+  flex: 1;
+  min-width: 0; // prevents long text from overflowing
+
   h3 {
     font-size: 16px;
     color: $text-dark;
@@ -43,7 +54,14 @@
 }
 
 .right {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0; // never getting smaller
+  @include respond(mobile) {
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 .price {

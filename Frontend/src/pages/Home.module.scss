@@ -1,4 +1,5 @@
 @import "../styles/variables";
+@import "../styles/mixins";
 
 .container {
   max-width: 1200px;
@@ -7,9 +8,19 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+
+  > * {
+    flex: 1 1 260px;
+    max-width: 350px;
+
+    @include respond(tablet) {
+      flex-basis: 45%;
+      max-width: 48%;
+    }
+  }
 }
 
 .pagination {
@@ -69,7 +80,9 @@
   background-position: right 12px center;
   padding-right: 36px;
   min-width: 210px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:focus {
     outline: none;
